@@ -1,6 +1,6 @@
 ![image](images/microchip.jpg) 
 
-## %repoDescritpion%
+## EPC9151 POWER BIDIRECTIONAL ACMC
 
 Board Image if any.
 
