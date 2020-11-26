@@ -1,4 +1,5 @@
-# Project Name or repo name release version
+# epc9151-power-bidirectional-acmc, release v1.0.0
+
 ### Release Highlights
 
 
