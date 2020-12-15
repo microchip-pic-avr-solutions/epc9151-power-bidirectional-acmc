@@ -1,17 +1,17 @@
-# epc9143-power-advanced-voltage-mode-control, release v2.1.0
+# epc9143-power-advanced-voltage-mode-control, release v1.0.0
 
 ### Release Highlights
-Version 2.1 is based on the original Advanced Voltage Mode Control scheme for the EPC9143 16th brick DC/DC converter power module reference design, hardware revision 4.0. With version 2.0 the state machine has been optimized and extended. Especially the converter startup has been made more robust and fault handling has been enhanced. With version 2.1 online documentation of the firmware has been added, which is now available as Github Pages:
-
-[EPC9143 Online Firmware Documentation](https://microchip-pic-avr-examples.github.io/epc9143-power-advanced-voltage-mode-control)
+Version 1.0 provides two independent firmware projects running the board in Average Current Mode Control in step-down or step-up operation. THis firmware may get merged into one comprehensive firmware package supporting both modes simultaneously.
 
 ### Features Added\Updated
-A single, high-speed type IV (4P4Z) voltage mode controller with enforced PWM steering is used to automatically create balanced phase currents in both phases of this interleaved converter. An underlying high-speed current balancing scheme compensates component tolerances and deviations over temperature. 
-A built-in adaptive gain control algorithm stabilizes gain variations of the voltage loop controller during input- and output voltage transients, stabilizing cross-over frequency, phase & gain margin and output impedance, supporting control bandwidths of >25 kHz, for improved transient response, helping to minimize power distribution network (PDN) decoupling capacity and increasing system robustness.
 
-### Please Note
-This is the first release version published on Github. Previous firmware versions 1.0 through 1.3 as well as version 2.0 were only available as ZIP archive on the EPC9143 product website on [microchip.com](https://www.microchip.com/epc9143) and are not covered by this repository.
+##### Average Current Mode Control
 
-Please contact [Microchip Technology Digital Power Support](mailto:mcu16support@microchip.com) if you are looking for previous firmware versions for this design.
+An outer voltage loop regulates the output voltage by comparing the most recent feedback value against an internal reference. The deviation is processed by a discrete type II (2P2Z) compensation filter. The output of the voltage loop sets the reference for the two inner current loops. Each phase current controller processes the deviation between the given dynamic current reference and the individual most recent current feedback. Each current control loop output adjusts the individual duty cycle or phase resulting in tightly balanced phase currents. This control scheme is applied to both, 48 V to 12 V downstream buck as well as to 12 V to 48 V upstream boost operation.
+
+When powered from a single DC source from either side of the converter, the output voltage will be kept constant up to the maximum output current of 25 A buck respectively. 5.5 A in boost operation, at which stage the converter switches into the constant current mode, effectively disables the voltage regulation.
+
+This firmware serves as the fundamental building block of battery charger front-end systems by implementing a chemistry-specific charging profile or as balancing converter between two battery powered bus rails.
+
 
 
