@@ -4,10 +4,10 @@
    "content":{
       "metaDataVersion":"1.0.0",
       "name":"com.microchip.mplabx.project.epc9151-power-bidirectional-acmc",
-      "version":"x.x.x",
-      "displayName":"xxxxxxxxxxxxxxx",
+      "version":"1.0.0",
+      "displayName":"EPC9151 300W Bi-Directional 16th Brick Power Module Reference Design",
       "projectName":"epc9151-power-bidirectional-acmc",
-      "shortDescription":"xxxxxxxxxxxxxxx",
+      "shortDescription":"Firmware for EPC9151 300W BiDirectional 16th Brick Power Module Reference Design featuring two projects for buck and boost operation",
       "ide":{
          "name":"MPLABX",
          "semverRange":">=5.40.0"
@@ -17,8 +17,8 @@
          "semverRange":"^1.50.0"
       },
       "dfp":{
-         "name":"xxxxxxxxxxxxxxx",
-         "semverRange":">=x.x.x"
+         "name":"dsPIC33CK-MP_DFP",
+         "semverRange":">=1.4.102"
       },
 	  "configurator": {
          "name": "MCC",
@@ -30,17 +30,30 @@
          "content":{
             "metaDataVersion":"1.0.0",
             "category":"com.microchip.device",
-            "name":"xxxxxxxxxxxxxxx",
+            "name":"dsPIC33CK32MP102",
             "versionRange":"*"
          }
       },
       "peripherals":[
-         "GPIO",
-         "UART"
+         "PORT",
+         "PWM",
+		 "ADC",
+		 "DAC",
+		 "DAC",
+		 "Timer"
       ],
-      "keywords":[
-         "GPIO",
-         "UART"
-      ]
+	  "subcategories": [
+		 "Power"
+	  ],
+	  "keywords": [
+		 "DSC",
+		 "dsPIC",
+		 "Power",
+		 "Power-Conversion",
+		 "Power-Supply",
+		 "SMPS",
+		 "Digital Power",
+		 "Digital Signal Processing/ Filters"
+	  ]
    }
 }
