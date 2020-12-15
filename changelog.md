@@ -1,7 +1,7 @@
-# epc9143-power-advanced-voltage-mode-control, release v1.0.0
+# epc9151-power-bidirectional-acmc, release v1.0.0
 
 ### Release Highlights
-Version 1.0 provides two independent firmware projects running the board in Average Current Mode Control in step-down or step-up operation. THis firmware may get merged into one comprehensive firmware package supporting both modes simultaneously.
+This initial provides two independent firmware projects running the board in Average Current Mode Control in step-down or step-up operation. THis firmware may get merged into one comprehensive firmware package supporting both modes simultaneously.
 
 ### Features Added\Updated
 
