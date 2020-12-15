@@ -1,7 +1,7 @@
 ![image](images/microchip.jpg) 
 
 ## EPC9151 300W 16th Brick Non-Isolated Step Up/Step Down Converter Bi-Directional Average Current Mode Control Firmware
-**2-Phase Synchronous Buck/Boost Converter with **
+**Bidirectional 2-Phase Synchronous Buck/Boost Converter**
 
 <table style="border:0px dotted white; align:center; width:100%">
 <tr>
@@ -21,16 +21,18 @@
 </table>
 
 ## Summary
-This code example demonstrates a closed loop voltage mode control implementation for dsPIC33CK. It has specifically been developed for the EPC9151 Rev1.0 1/16 brick converter.
+This code example demonstrates a closed loop Average Current Mode Control implementation for dsPIC33CK. It has specifically been developed for the EPC9151 Rev1.0 1/16 brick converter.
 
-The board starts up the buck converter automatically when power is applied to the board, providing a regulated output voltage of 12 V at the output of the converter. The startup procedure is controlled and executed by the power controller state machine and includes an configurable startup procedure with power-on delay, ramp up period and power good delay before dropping into constant regulation mode.
-An additional fault handler routine continuously monitors incoming ADC data and peripheral status bits and shuts down the power supply if the input voltage is outside the defined maximum range of 16.5 V to 62.5 V (UVLO/OVLO) or if the output voltage is more than 0.5 V out of regulation for more than 10 milliseconds.
+The board supports step-down as well as step-up operation. In step-down mode the conversion direction goes from 48 V to 12 V while in step-up mode the conversion direction from 12 V to 48 V. If not other stated, the 48 V side is named 'input' and the 12 V side is named 'output' in this document.
 
-A single, high-speed type IV (4P4Z) voltage mode controller with enforced PWM steering is used to automatically create balanced phase currents in both phases of this interleaved converter. An underlying current balancing scheme compensates component tolerances and deviations over temperature. A built-in adaptive gain control algorithm stabilizes gain variations of the voltage loop controller during input- and output voltage transients, stabilizing cross-over frequency and output impedance, supporting control bandwidths of 25 kHz, for improved transient response, helping to minimize power distribution network (PDN) decoupling capacity.
+The board starts up the power converter automatically when power is applied to the board, providing a regulated output voltage. The startup procedure is controlled and executed by the power controller state machine and includes an configurable startup procedure with power-on delay, ramp up period and power good delay before dropping into constant regulation mode.
+An additional fault handler routine continuously monitors incoming ADC data and peripheral status bits and shuts down the power supply if the input voltage is outside the defined range (UVLO/OVLO) or if the output voltage is more than 0.5 V out of regulation for more than 10 milliseconds.
+
+A mutli-loop type II (2P2Z) average mode controller is used to balance phase currents in both phases of this interleaved converter. (see details below)
 
 #### Product Features:
-  - Input Voltage: 18 V to 61 V (48 V default)
-  - Output Voltage: 5 ... 15 V DC (12 V default)
+  - Input Voltage: 18 V to 61 V (48 V side)
+  - Output Voltage: 5 ... 15 V DC (12 V side)
   - Switching Frequency: 500 kHz
   - Control Frequency: 500 kHz
   - Cross-Over Frequency: ~5 kHz 
@@ -57,8 +59,8 @@ A single, high-speed type IV (4P4Z) voltage mode controller with enforced PWM st
   - [MCP6C02 Zero-Drift, High-Side Current Sense Amplifier](https://www.microchip.com/DS20006129)
 
 *Featured Efficient Power Conversion (EPC) Products:*
-- [EPC2053 100 V, 48/246 A Enhancement-Mode GaN Power Transistor](https://epc-co.com/epc/Products/eGaNFETsandICs/EPC2053.aspx)
-  - [EPC2053 Data Sheet](https://epc-co.com/epc/Portals/0/epc/documents/datasheets/EPC2053_datasheet.pdf)
+- [EPC2152 70 V, 12.5 A ePower™ Stage](https://epc-co.com/epc/Products/eGaNFETsandICs/EPC2152.aspx)
+  - [EPC2152 Data Sheet](https://epc-co.com/epc/documents/datasheets/EPC2152x_datasheet.pdf)
 
 ## Development Tools 
 
@@ -81,7 +83,7 @@ A single, high-speed type IV (4P4Z) voltage mode controller with enforced PWM st
 ## Hardware Used
 The EPC9151 1/16th brick power module is best tested when plugged into EPC9531 test fixture. This test fixture also provides all required interfaces to program and debug the dsPIC33CK32MP102 DSC as well as test points and banana jack connectors for easy and safe handling of the kit during bench tests. The EPC9531 QSG provides detailed operating procedure instructions.
 
-  - EPC9151: EPC9151 16th Brick Non-Isolated Step Down Converter, Revision 4.0
+  - EPC9151: EPC9151 16th Brick Non-Isolated Step Down Converter, Revision 1.0
   - EPC9531: EPC9531 test fixture for EPC9151 16th brick reference design
 
 <p>
@@ -114,7 +116,7 @@ In case firmware based features need to be changed, the Microchip dsPIC33CK cont
 
 
 ## Operation
-The converter is starting up automatically when more than 10.5 V DC are applied across the input terminals of the EPC9531 test fixture. It is not recommended to operate the EPC9151 reference design without proper decoupling capacitance at either input or output. The EPC9531 test fixture provides the best test environment for the converter. Please read the [EPC9531 Quick Start Guide](https://epc-co.com/epc/documents/guides/EPC9531_qsg.pdf) to get detailed information about the requirements for setup and operation of this reference design.
+The converter is starting up automatically when more than 8.5 V DC are applied across the output terminals resp. 18 V across the input terminals of the EPC9531 test fixture. It is not recommended to operate the EPC9151 reference design without proper decoupling capacitance at either input or output. The EPC9531 test fixture provides the best test environment for the converter. Please read the [EPC9531 Quick Start Guide](https://epc-co.com/epc/documents/guides/EPC9531_qsg.pdf) to get detailed information about the requirements for setup and operation of this reference design.
 
 ## Firmware Quick-Start Guide
 
@@ -150,17 +152,22 @@ After the Power Good Delay has expired, the converter drops into nominal operati
 i) Suspend/Error
 If the power controller is shut down and reset by external commands (e.g. fault handler detecting a fault condition or through user-interaction), the state machine is switching into the SUSPEND state, which disables the PWM outputs and control loop execution, clears the control histories and resets the state machine back to RESET
 
-##### 2) Cycle-by-Cycle Voltage Control Loop
+##### 2) Cycle-by-Cycle Average Current Mode Control Loop
 
-This firmware uses a digital type IV controller to close the feedback loop in voltage mode control. This digital loop reads the most recent ADC sample of the output voltage and processes the derived value through a digital type IV (4P4Z) compensation filter. The numeric output is checked and, when necessary, clamped to user-defined minimum/maximum thresholds before being written to the PWM duty cycle register. As EPC9151 is a multiphase converter, a special PWM steering mode has been implemented supporting high-speed current balancing between the two phases. The voltage mode controller has been extended with a self-adapting loop gain tuning algorithm (AGC) stabilizing the frequency domain characteristic over input voltage, output voltage and load, always providing the exact same bandwidth of >25 kHz and stability margins across the entire operating range.
+The bi-directional control system of EPC9151 is based on the conventional Average Current Mode Control (ACMC). An outer voltage loop regulates the output voltage by comparing the most recent feedback value against an internal reference. The deviation is processed by a discrete type II (2P2Z) compensation filter. The output of the voltage loop sets the reference for the two inner current loops. Each phase current controller processes the deviation between the given dynamic current reference and the individual most recent current feedback. Each current control loop output adjusts the individual duty cycle or phase resulting in tightly balanced phase currents. This control scheme is applied to both, 48 V to 12 V downstream buck as well as to 12 V to 48 V upstream boost operation.
+
+When powered from a single DC source from either side of the converter, the output voltage will be kept constant up to the maximum output current of 25 A buck respectively. 5.5 A in boost operation, at which stage the converter switches into the constant current mode, effectively disables the voltage regulation.
+
+This firmware serves as the fundamental building block of battery charger front-end systems by implementing a chemistry-specific charging profile or as balancing converter between two battery powered bus rails.
 
 <p>
   <center>
-    <img src="images/type4-avmc.png" alt="EPC9151 type IV - Advanced Voltage Control Loop" width="800">
+    <img src="images/2-phase-acmc.png" alt="EPC9151 type II Mutli-Loop Average Current Mode Control Loop" width="800">
     <br>
     EPC9151 Type IV Controller - Advanced Voltage Control Loop
   </center>
 </p>
+
 This control loop can be turned on/off by using the ENABLE bit in the STATUS word of the cNPNZ_t controller data structure. The adaptive loop gain modulation is permanently active as soon as the control loop is enabled.
 
 ##### 3) Digital Controller Design
@@ -175,9 +182,9 @@ Once installed, the controller configuration can be modified. The most recent co
 
 Please refer to the user guide of PowerSmart&trade; DCLD which is included in the software and can be opened from the help menu of the application.
 
-##### 4) User Control
+##### 1) User Control
 
-No user control interface has been added to the firmware. Any change to the firmware and fundamental operation of the reference design, including reprogramming of the nominal output voltage can be done by editing the hardware-specific values in the hardware description header file 'epc9151_r40_hwdescr.h' located in 'Project Manager => Header Files/Config'
+No user control interface has been added to the firmware. Any change to the firmware and fundamental operation of the reference design, including reprogramming of the nominal output voltage can be done by editing the hardware-specific values in the hardware description header file 'epc9151_r10_hwdescr.h' located in 'Project Manager => Header Files/Config'
 
 Converter settings in this file are defined as physical values such as Volt, Ampere, Ohm, etc. Each defined value is converted into binary numbers by so-called macros, at compile time. Thus, users do not have to convert values manually.
 
@@ -185,7 +192,7 @@ Converter settings in this file are defined as physical values such as Volt, Amp
 To program the converter to provide a nominal output voltage different from the 12 V DC set by default, follow these steps:
 
   - Open the project in MPLAB X® IDE
-  - Navigate to 'Header Files/Config/epc9151_r40_hwdescr.h' using the Project Manager on the left of the main window
+  - Navigate to 'Header Files/Config/epc9151_r10_hwdescr.h' using the Project Manager on the left of the main window
   - Go to line #325 (see below)
   - Change the give settings as desired
   - Build the program
