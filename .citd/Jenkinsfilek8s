@@ -220,7 +220,7 @@ pipeline {
             when {
                 allOf {
                     not { changeRequest() }
-                    anyOf {branch 'master';}
+                    anyOf {branch 'master'; branch 'test_deploy';}
                 }
             }
             steps {
