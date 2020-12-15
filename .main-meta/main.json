@@ -4,7 +4,7 @@
    "content":{
       "metaDataVersion":"1.0.0",
       "name":"com.microchip.mplabx.project.epc9151-power-bidirectional-acmc",
-      "version":"1.0.0",
+      "version":"1.0.1",
       "displayName":"EPC9151 300W Bi-Directional 16th Brick Power Module Reference Design",
       "projectName":"epc9151-power-bidirectional-acmc",
       "shortDescription":"Firmware for EPC9151 300W BiDirectional 16th Brick Power Module Reference Design featuring two projects for buck and boost operation",

@@ -1,7 +1,7 @@
-# epc9151-power-bidirectional-acmc, release v1.0.0
+# epc9151-power-bidirectional-acmc, release v1.0.1
 
 ### Release Highlights
-This initial provides two independent firmware projects running the board in Average Current Mode Control in step-down or step-up operation. THis firmware may get merged into one comprehensive firmware package supporting both modes simultaneously.
+This initial provides two independent firmware projects running the board in Average Current Mode Control in step-down or step-up operation. This firmware may get merged into one comprehensive firmware package supporting both modes simultaneously.
 
 ### Features Added\Updated
 
