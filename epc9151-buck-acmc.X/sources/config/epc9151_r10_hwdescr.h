@@ -20,16 +20,16 @@
  */
 
 /* 
- * File:   epc9143_R40_hwdescr.h
+ * File:   epc9151_R40_hwdescr.h
  * Author: M91406
- * Comments: EPC9143 16th Brick Reference Design Hardware Descriptor header file
+ * Comments: EPC9151 16th Brick Reference Design Hardware Descriptor header file
  * Revision history: 
  */
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef EPC9143_R40_HARDWARE_DESCRIPTOR_H
-#define	EPC9143_R40_HARDWARE_DESCRIPTOR_H
+#ifndef EPC9151_R40_HARDWARE_DESCRIPTOR_H
+#define	EPC9151_R40_HARDWARE_DESCRIPTOR_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h> // include standard integer data types
@@ -93,21 +93,21 @@ extern "C" {
  * 
  * *************************************************************************************************/
 
-#ifdef __EPC9143_R40__
+#ifdef __EPC9151_R40__
     
-    // Device Pin #1 on EPC9143
+    // Device Pin #1 on EPC9151
     #define DBGPIN_1_SET	{ _LATB14 = 1; }
     #define DBGPIN_1_CLEAR	{ _LATB14 = 0; }
     #define DBGPIN_1_TOGGLE	{ _LATB14 ^= 1; }
     #define DBGPIN_1_INIT	{ _LATB14 = 0; _TRISB14 = 0; }
 
-    // Device Pin #2 on EPC9143
+    // Device Pin #2 on EPC9151
     #define DBGPIN_2_SET	{ _LATB15 = 1; }
     #define DBGPIN_2_CLEAR	{ _LATB15 = 0; }
     #define DBGPIN_2_TOGGLE	{ _LATB15 ^= 1; }
     #define DBGPIN_2_INIT	{ _LATB15 = 0; _TRISB15 = 0; }
 
-    // Device Pin #25 on EPC9143
+    // Device Pin #25 on EPC9151
     #define DBGPIN_3_SET	{ _LATB10 = 1; }
     #define DBGPIN_3_CLEAR	{ _LATB10 = 0; }
     #define DBGPIN_3_TOGGLE	{ _LATB10 ^= 1; }
@@ -458,7 +458,7 @@ extern "C" {
  * 
  * *************************************************************************************************/
 
-// On EPC9143 Rev 4 it takes roughly 50 ms until the auxiliary power has been started
+// On EPC9151 Rev 4 it takes roughly 50 ms until the auxiliary power has been started
 // and the controller completes self-test and peripheral configuration. After this period
 // the controller starts to execute the power control state machine.
     
@@ -521,5 +521,5 @@ extern "C" {
 }
 #endif /* __cplusplus */
 
-#endif	/* EPC9143_R40_HARDWARE_DESCRIPTOR_H */
+#endif	/* EPC9151_R40_HARDWARE_DESCRIPTOR_H */
 

@@ -12,7 +12,7 @@
 #include <stddef.h> // include standard definition data types
 
 #include "pwr_control/app_power_control.h"
-#include "config/epc9143_r40_hwdescr.h"
+#include "config/epc9151_r10_hwdescr.h"
 #include "fault_handler/app_faults.h"
 
 /*!BUCK_POWER_CONTROLLER_t data structure

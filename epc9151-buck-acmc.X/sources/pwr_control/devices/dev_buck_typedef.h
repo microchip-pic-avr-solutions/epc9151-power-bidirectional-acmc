@@ -40,7 +40,7 @@
 #include <stddef.h> // include standard definition data types
 
 #include "pwr_control/drivers/npnz16b.h"
-#include "config/epc9143_r40_hwdescr.h"
+#include "config/epc9151_r10_hwdescr.h"
 
 
 #ifdef	__cplusplus

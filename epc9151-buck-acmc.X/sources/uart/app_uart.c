@@ -8,7 +8,7 @@
 #include <stddef.h>
 
 #include "app_uart.h"
-#include "config/epc9143_r40_hwdescr.h"
+#include "config/epc9151_r10_hwdescr.h"
 #include "pwr_control/app_power_control.h"
 
 

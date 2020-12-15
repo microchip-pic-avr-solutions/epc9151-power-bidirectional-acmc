@@ -7,7 +7,7 @@
 
 
 #include <xc.h>
-#include "config/epc9143_r40_hwdescr.h"
+#include "config/epc9151_r10_hwdescr.h"
 #include "init_dac.h"
 
 volatile uint16_t dac_mask = 0;

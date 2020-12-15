@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>epc9151</name>
+            <name>epc9151-buck-acmc</name>
             <creation-uuid>fdac5ced-dfa7-4368-a3cb-42bdf808e3c1</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>
@@ -23,11 +23,7 @@
             </sourceRootList>
             <confList>
                 <confElem>
-                    <name>EPC9143_R40</name>
-                    <type>2</type>
-                </confElem>
-                <confElem>
-                    <name>DM330029_R20</name>
+                    <name>EPC9151_R10</name>
                     <type>2</type>
                 </confElem>
             </confList>
