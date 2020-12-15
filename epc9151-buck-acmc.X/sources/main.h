@@ -39,9 +39,9 @@
 
 #include "globals.h"
 
-#if defined (__EPC9151_R40__)
+#if defined (__EPC9151_R10__)
 
-    #include "config/epc9151_r40_hwdescr.h"
+    #include "config/epc9151_r10_hwdescr.h"
 
 #elif defined (__DM330029_R20__)
 

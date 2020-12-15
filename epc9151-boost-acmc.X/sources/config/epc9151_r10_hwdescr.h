@@ -20,7 +20,7 @@
  */
 
 /* 
- * File:   epc9151_R40_hwdescr.h
+ * File:   epc9151_R10_hwdescr.h
  * Author: M91406
  * Comments: EPC9151 16th Brick Reference Design Hardware Descriptor header file
  * Revision history: 
@@ -41,7 +41,10 @@
 extern "C" {
 #endif /* __cplusplus */
 
-
+#ifndef __EPC9151_R10__
+#define __EPC9151_R10__
+#endif
+    
 /*!Microcontroller Abstraction
  * *************************************************************************************************
  * Summary:
@@ -559,5 +562,5 @@ extern "C" {
 }
 #endif /* __cplusplus */
 
-#endif	/* EPC9151_R40_HARDWARE_DESCRIPTOR_H */
+#endif	/* EPC9151_R10_HARDWARE_DESCRIPTOR_H */
 

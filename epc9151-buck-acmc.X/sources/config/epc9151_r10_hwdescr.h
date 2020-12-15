@@ -20,7 +20,7 @@
  */
 
 /* 
- * File:   epc9151_R40_hwdescr.h
+ * File:   epc9151_R10_hwdescr.h
  * Author: M91406
  * Comments: EPC9151 16th Brick Reference Design Hardware Descriptor header file
  * Revision history: 
@@ -28,19 +28,22 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef EPC9151_R40_HARDWARE_DESCRIPTOR_H
-#define	EPC9151_R40_HARDWARE_DESCRIPTOR_H
+#ifndef EPC9151_R10_HARDWARE_DESCRIPTOR_H
+#define	EPC9151_R10_HARDWARE_DESCRIPTOR_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include <stdint.h> // include standard integer data types
 #include <stdbool.h> // include standard boolean data types
 #include <stddef.h> // include standard definition data types
-#include <math.h> // include standard math functoins library
+#include <math.h> // include standard math functions library
 
 #ifdef	__cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
+#ifndef __EPC9151_R10__
+#define __EPC9151_R10__
+#endif
 
 /*!Microcontroller Abstraction
  * *************************************************************************************************
@@ -93,7 +96,7 @@ extern "C" {
  * 
  * *************************************************************************************************/
 
-#ifdef __EPC9151_R40__
+#ifdef __EPC9151_R10__
     
     // Device Pin #1 on EPC9151
     #define DBGPIN_1_SET	{ _LATB14 = 1; }
@@ -521,5 +524,5 @@ extern "C" {
 }
 #endif /* __cplusplus */
 
-#endif	/* EPC9151_R40_HARDWARE_DESCRIPTOR_H */
+#endif	/* EPC9151_R10_HARDWARE_DESCRIPTOR_H */
 
